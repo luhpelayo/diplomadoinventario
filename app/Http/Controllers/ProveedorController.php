@@ -61,5 +61,17 @@ class ProveedorController extends Controller
         return redirect()->route('proveedores.indexProveedor');
     }
     
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Proveedor  $proveedor
+     * @return \Illuminate\Http\Response
+     */
+    public function showProveedor(Proveedor $proveedore)
+    {
+        // Render the view showProveedor and pass the variable $proveedore
+        return view('proveedor.showProveedor',compact ('proveedore'));
+    }
+
 
 }
