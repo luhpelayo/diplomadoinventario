@@ -35,7 +35,16 @@
           <td>{{$proveedor->nombre}}</td>
           <td>{{$proveedor->telefono}}</td>
           <td >
-   
+            <form action="{{route('proveedores.destroyProveedor',$proveedor)}}" method="post">
+              @csrf
+              @method('delete')
+              <a class="btn btn-primary btn-sm" href="{{route('proveedores.showProveedor',$proveedor)}}">Ver</a>
+                
+              <a href="{{route('proveedores.editProveedor',$proveedor)}}"class="btn btn-info btn-sm">Editar</a>
+
+              <button class="btn btn-danger btn-sm" onclick="return confirm('¿ESTA SEGURO DE  BORRAR?')" 
+              value="Borrar">Eliminar</button> 
+            </form>
           </td>
         </tr>
 
