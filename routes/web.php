@@ -37,6 +37,34 @@ use App\Models\NotaCompra;
 |
 */
 
+//proveedor
+Route::get('/proveedores', [ProveedorController::class, 'indexProveedor'])->name('proveedores.indexProveedor');
+Route::get('/proveedores/create', [ProveedorController::class, 'createProveedor'])->name('proveedores.createProveedor');
+Route::post('/proveedores', [ProveedorController::class, 'storeProveedor'])->name('proveedores.storeProveedor');
+Route::get('/proveedores/{proveedore}', [ProveedorController::class, 'showProveedor'])->name('proveedores.showProveedor');
+Route::get('/proveedores/{proveedore}/edit', [ProveedorController::class, 'editProveedor'])->name('proveedores.editProveedor');
+Route::put('/proveedores/{proveedore}', [ProveedorController::class, 'updateProveedor'])->name('proveedores.updateProveedor');
+Route::delete('/proveedores/{proveedore}', [ProveedorController::class, 'destroyProveedor'])->name('proveedores.destroyProveedor');
+
+//Nota de Compra
+Route::get('/notaCompras', [NotaCompraController::class, 'indexNotacompra'])->name('notaCompras.indexNotacompra');
+Route::get('/notaCompras/create', [NotaCompraController::class, 'createNotacompra'])->name('notaCompras.createNotacompra');
+Route::post('/notaCompras', [NotaCompraController::class, 'storeNotacompra'])->name('notaCompras.storeNotacompra');
+Route::get('/notaCompras/{notaCompra}', [NotaCompraController::class, 'showNotacompra'])->name('notaCompras.showNotacompra');
+Route::get('/notaCompras/{notaCompra}/edit', [NotaCompraController::class, 'editNotacompra'])->name('notaCompras.editNotacompra');
+Route::put('/notaCompras/{notaCompra}', [NotaCompraController::class, 'updateNotacompra'])->name('notaCompras.updateNotacompra');
+Route::delete('/notaCompras/{notaCompra}', [NotaCompraController::class, 'destroyNotacompra'])->name('notaCompras.destroyNotacompra');
+
+//Detalle compra
+Route::prefix('detalle-compra')->group(function () {
+    Route::get('/', [DetalleCompraController::class, 'indexDetallecompra'])->name('detalleCompras.indexDetallecompra');
+    Route::get('/{id}/show', [DetalleCompraController::class, 'showDetallecompra'])->name('detalleCompras.showDetallecompra');
+    Route::get('/{notaCompra}/create', [DetalleCompraController::class, 'createDetallecompra'])->name('detalleCompras.createDetallecompra');
+    Route::post('/', [DetalleCompraController::class, 'storeDetallecompra'])->name('detalleCompras.storeDetallecompra');
+    Route::delete('/{id}', [DetalleCompraController::class, 'destroyDetallecompra'])->name('detalleCompras.destroyDetallecompra');
+});
+
+
 Route::get('/', function () {
     return redirect('/login');
 });
@@ -51,8 +79,6 @@ Route::resource('roles', RoleController::class)->names('admin.roles');
 
 Route::resource('clientes',ClienteController::class);
 
-Route::resource('proveedores',ProveedorController::class);
-
 Route::resource('personales',PersonalController::class);
 
 Route::resource('productos',ProductoController::class);
@@ -61,7 +87,7 @@ Route::resource('categorias',CategoriaController::class);
 
 Route::resource('bitacora',BitacoraController::class);
 
-Route::resource('notaCompras',NotaCompraController::class);
+
 
 Route::resource('marcas',MarcaController::class);
 
@@ -73,7 +99,6 @@ Route::resource('detalleVentas',DetalleVentaController::class);
 
 Route::resource('autos',AutoController::class);
 
-Route::resource('detalleCompras',detalleCompraController::class);
 
 Route::resource('facturas',FacturaController::class);
 

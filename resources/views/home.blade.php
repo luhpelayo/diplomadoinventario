@@ -36,7 +36,7 @@
 	</div>
 	
 	<div class= "iconos">
-		<a href="{{route('proveedores.index')}}">
+		<a href="{{route('proveedores.indexProveedor')}}">
 			<i class="fas fa-dolly fa-7x" style="color:#364542" ></i> 
 			</a>
 	<h4> Proveedores</h4>
