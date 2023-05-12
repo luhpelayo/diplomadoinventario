@@ -73,5 +73,46 @@ class ProveedorController extends Controller
         return view('proveedor.showProveedor',compact ('proveedore'));
     }
 
+        /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Proveedor  $proveedor
+     * @return \Illuminate\Http\Response
+     */
+    public function editProveedor(Proveedor $proveedore)
+    {
+        // Render the view editProveedor and pass the variable $proveedore
+        return view('proveedor.editProveedor',compact('proveedore'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Proveedor  $proveedor
+     * @return \Illuminate\Http\Response
+     */
+    public function updateProveedor(Request $request, Proveedor $proveedore)
+    {
+        // Set time zone
+        date_default_timezone_set("America/La_Paz");
+
+        // Validate the received data
+                $validatedData = $request->validate([
+                    'nombre' => 'required',
+                    'telefono' => 'required|digits:8',
+                    'email' => 'required|email',
+                ]);
+            
+        // Update the supplier's data with the values ​​received in the form
+        $proveedore->nombre=$request->nombre;
+        $proveedore->telefono=$request->telefono;
+        $proveedore->direccion=$request->direccion;
+        $proveedore->email=$request->email;
+        $proveedore->save();
+        // Redirect user to view indexProveedor
+        return redirect()->route('proveedores.indexProveedor');
+    }
+
 
 }
