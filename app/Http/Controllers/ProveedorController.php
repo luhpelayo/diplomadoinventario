@@ -114,5 +114,19 @@ class ProveedorController extends Controller
         return redirect()->route('proveedores.indexProveedor');
     }
 
+        /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Proveedor  $proveedor
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyProveedor(Proveedor $proveedore)
+    {
+    // Delete the provider from the database
+    $proveedore->delete();
+    
+    // Redirect user to provider list
+    return redirect()->route('proveedores.indexProveedor');
+    }
 
 }
