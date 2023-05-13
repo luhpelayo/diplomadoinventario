@@ -150,4 +150,30 @@ public function updateNotacompra(Request $request, NotaCompra $notaCompra)
     return redirect()->route('notaCompras.indexNotacompra');
 } 
 
+/**
+ * Remove the specified resource from storage.
+ *
+ * @param  \App\Models\NotaCompra  $notaCompra
+ * @return \Illuminate\Http\Response
+ */
+public function destroyNotacompra(NotaCompra $notaCompra)
+{
+    date_default_timezone_set("America/La_Paz");
+
+    // Call the deleteDetalle method to delete related details
+    $notaCompra->deleteDetalle($notaCompra);
+
+    // Delete the main notaCompra record
+    $notaCompra->delete();
+
+    // Log the activity
+    activity()->useLog('NotaCompra')->log('Eliminar')->subject();
+    $lastActivity = Activity::all()->last();
+    $lastActivity->subject_id = $notaCompra->id;
+    $lastActivity->save();
+
+    // Redirect to the indexNotacompra route
+    return redirect()->route('notaCompras.indexNotacompra');
+}
+
 }
