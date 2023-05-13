@@ -37,7 +37,7 @@
                <td>
 
                    <a class="btn btn-primary btn-sm" href="{{route('notaCompras.showNotacompra', $notaCompra)}}">Ver</a>
-                     
+                   <a href="{{route('notaCompras.editNotacompra', $notaCompra)}}"class="btn btn-info btn-sm">Editar</a>
                  </form>
                </td>
             </tr>
