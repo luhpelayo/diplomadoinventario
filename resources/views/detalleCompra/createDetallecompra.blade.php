@@ -86,7 +86,12 @@
                                 <td>{{$nota->costo}}</td>
                                 <td>
                                     
-
+                                <form action="{{route('detalleCompras.destroyDetallecompra',$nota->id)}}" method="post">
+                                    @csrf
+                                      @method('delete')
+                                      <button class="btn btn-danger btn-sm" onclick="return confirm('¿ESTA SEGURO DE  BORRAR?')" 
+                                      value="Borrar"><i class="fas fa-times"></i> </button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
