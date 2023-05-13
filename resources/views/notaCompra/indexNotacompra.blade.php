@@ -35,10 +35,15 @@
                <td>{{$notaCompra->monto}}</td>
                <td>{{$notaCompra->fecha}}</td>
                <td>
-
+                 <form action="{{route('notaCompras.destroyNotacompra',$notaCompra)}}" method="post">
+                   @csrf
+                   @method('delete')
                    <a class="btn btn-primary btn-sm" href="{{route('notaCompras.showNotacompra', $notaCompra)}}">Ver</a>
                    <a href="{{route('notaCompras.editNotacompra', $notaCompra)}}"class="btn btn-info btn-sm">Editar</a>
+                   <button class="btn btn-danger btn-sm" onclick="return confirm('¿ESTA SEGURO DE  BORRAR?')" 
+                   value="Borrar">Eliminar</button> 
                  </form>
+
                </td>
             </tr>
   
