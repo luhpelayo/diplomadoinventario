@@ -79,5 +79,42 @@ public function showDetallecompra($id)
     return view('detalleCompra.createDetallecompra',compact('notaCompra'),['productos'=>$productos, 'notas'=>$notas]);
 }
 
+/**
+ * Remove the specified resource from storage.
+ *
+ * @param  int  $id  The id of the resource to be deleted
+ * @return \Illuminate\Http\Response
+ */
+public function destroyDetallecompra($id)
+{
+    // Set the timezone to America/La_Paz
+    date_default_timezone_set("America/La_Paz");
+    
+    // Retrieve the idNotaCompra, idProducto and cantidad of the DetalleCompra to be deleted
+    $idNotaCompra = DB::table('detalle_compras')->where('id',$id)->value('idNotaCompra');
+    $idProducto = DB::table('detalle_compras')->where('id',$id)->value('idProducto');
+    $cantidad = DB::table('detalle_compras')->where('id',$id)->value('cantidad');;
+    
+    // Retrieve the current stock of the product and calculate the new stock after deleting the DetalleCompra
+    $productoStock = DB::table('productos')->where('id',$idProducto)->value('stock');
+    $nuevoStock = $productoStock - $cantidad;
+    
+    // Update the stock of the product
+    DB::table('productos')->where('id',$idProducto)->update([
+        'stock'=>$nuevoStock
+    ]);
+    
+    // Delete the DetalleCompra from the database
+    detalleCompra::destroy($id);
+
+    // Recalculate the monto of the NotaCompra and update it
+    $monto = DB::table('detalle_compras')->where('idNotaCompra',$idNotaCompra)->sum('importe');
+    DB::table('nota_compras')->where('id',$idNotaCompra)->update([
+        'monto'=>$monto
+    ]);
+    
+    // Redirect to the view that shows the DetalleCompra of the NotaCompra
+    return redirect(route('detalleCompras.showDetallecompra', $idNotaCompra));
+}
     
 }
