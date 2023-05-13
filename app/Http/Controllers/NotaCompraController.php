@@ -80,4 +80,16 @@ public function storeNotacompra(Request $request)
     return redirect(route('detalleCompras.showDetallecompra', $notaCompra));
 }
 
+/**
+ * Display the specified resource.
+ *
+ * @param  \App\Models\NotaCompra  $notaCompra
+ * @return \Illuminate\Http\Response
+ */
+public function showNotacompra(NotaCompra $notaCompra)
+{
+	 // Render the view showNotacompra and pass the variable $notaCompra
+    return view('notaCompra.showNotacompra',compact ('notaCompra'));
+}
+
 }
