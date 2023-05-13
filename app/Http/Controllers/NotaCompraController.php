@@ -92,4 +92,62 @@ public function showNotacompra(NotaCompra $notaCompra)
     return view('notaCompra.showNotacompra',compact ('notaCompra'));
 }
 
+/**
+ * Show the form for editing the specified resource.
+ *
+ * @param  \App\Models\NotaCompra  $notaCompra
+ * @return \Illuminate\Http\Response
+ */
+public function editNotacompra(NotaCompra $notaCompra)
+{
+    // Retrieve related models
+    $proveedor = Proveedor::find($notaCompra->nroProveedor);
+    $user = User::find($notaCompra->nroUsuario);
+
+    // Get list of products from the database
+    $productos = DB::table('productos')->get();
+    
+    // Get list of all providers and users from the database
+    $proveedors = DB::table('proveedors')->get();
+    $users = DB::table('users')->get();
+    
+    // Pass data to the view for rendering
+    return view('notaCompra.editNotacompra',compact('notaCompra'),[
+        'proveedor_nombre' => $proveedor->nombre,
+        'user_nombre' => $user->nombre,
+        'productos' => $productos, 
+        'proveedors' => $proveedors, 'users' => $users
+    ]);
+}
+
+/**
+ * Update the specified resource in storage.
+ *
+ * @param  \Illuminate\Http\Request  $request
+ * @param  \App\Models\NotaCompra  $notaCompra
+ * @return \Illuminate\Http\Response
+ */
+public function updateNotacompra(Request $request, NotaCompra $notaCompra)
+{
+    // Set timezone
+    date_default_timezone_set("America/La_Paz");
+
+    // Update properties of the NotaCompra object with values from the request
+    $notaCompra->nroProveedor=$request->nroProveedor;
+    $notaCompra->nroUsuario=$request->nroUsuario;
+    $notaCompra->monto=$request->monto;
+
+    // Save changes to the database
+    $notaCompra->save();
+
+    // Log the activity
+    activity()->useLog('NotaCompra')->log('Editar')->subject();
+    $lastActivity = Activity::all()->last();
+    $lastActivity->subject_id = $notaCompra->id;
+    $lastActivity->save();
+
+    // Redirect the user to the index page for NotaCompra
+    return redirect()->route('notaCompras.indexNotacompra');
+} 
+
 }
