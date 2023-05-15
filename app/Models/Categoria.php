@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+/**
+ * This class defines the atributes of category
+ */
 class Categoria extends Model
 {
     use HasFactory;

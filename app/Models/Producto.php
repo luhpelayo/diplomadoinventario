@@ -4,7 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+/**
+ * This class defines the atributes of product and its relation with
+ * other models
+ */
 class Producto extends Model
 {
     use HasFactory;
@@ -14,13 +17,10 @@ class Producto extends Model
     public function categoria(){
         return $this->belongsTo('App\Models\Categoria', 'idCategoria');
     }
-    //relacion muchos a muchos
+    
     public function salidas(){
-        // return $this->belongsToMany('App\Models\Salida');  //metodo 1 relacion
-        //->withPivot('cantidad')--> especificamos que hay otro atributo en la tabla intermedia
-        return $this->belongsToMany(Producto::class)->withPivot('cantidad'); //metodo 2 relacion
-        //return $this->belongsToMany(Producto::class); //metodo 2 relacion sin atributos extras
 
+        return $this->belongsToMany(Producto::class)->withPivot('cantidad'); 
 
     }
     public function autos(){
