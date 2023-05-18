@@ -1,0 +1,4 @@
+EJECUTAR SEEDERS
+PARA LA BASE DE DATOS
+admin@gmail.com
+admin
