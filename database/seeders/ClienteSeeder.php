@@ -15,11 +15,19 @@ class ClienteSeeder extends Seeder
     public function run()
     {
         Cliente::create([
-            'ci'=>'12345',
-            'nombre'=> 'chumacero',
+            'ci'=>'1234895',
+            'nombre'=> 'Jose Callejas',
             'sexo'=> 'm',
-            'telefono'=> '72182456',
-            'email'=> 'chumacero@gmail.com',
+            'telefono'=> '72180056',
+            'email'=> 'josec@gmail.com',
+        ]);
+
+        Cliente::create([
+            'ci'=>'12788',
+            'nombre'=> 'Morgan Ruiz',
+            'sexo'=> 'm',
+            'telefono'=> '72182556',
+            'email'=> 'morgan@gmail.com',
         ]);
     }
 }
